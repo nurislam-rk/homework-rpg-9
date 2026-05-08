@@ -1,20 +1,30 @@
 package com.narxoz.rpg;
 
-/**
- * Entry point for Homework 9 — Chronomancer's Vault: Visitor + Memento.
- *
- * The scaffold prints the banner only; students fill in the vault demo.
- */
-public class Main {
+import com.narxoz.rpg.artifact.*;
+import com.narxoz.rpg.combatant.Hero;
+import com.narxoz.rpg.vault.ChronomancerEngine;
+import com.narxoz.rpg.vault.VaultRunResult;
+import java.util.List;
 
+public class Main {
     public static void main(String[] args) {
         System.out.println("=== Homework 9 Demo: Visitor + Memento ===");
 
-        // 1. Create at least 2 heroes with different starting states.
-        // 2. Build an artifact inventory and exercise the visitor interface.
-        // 3. Capture a hero snapshot through the memento workflow.
-        // 4. Rewind the hero after a vault trap changes state.
-        // 5. Run the ChronomancerEngine demo sequence.
-        // 6. Print a final VaultRunResult summary.
+        Inventory inv1 = new Inventory();
+        inv1.addArtifact(new Weapon("ดาบ (Sword)", 100, 5, 10));
+        inv1.addArtifact(new Potion("Health", 50, 1, 20));
+
+        Inventory inv2 = new Inventory();
+        inv2.addArtifact(new Armor("Plate", 200, 15, 30));
+        inv2.addArtifact(new Ring("Magic", 150, 1, 5));
+        inv2.addArtifact(new Scroll("Fire", 80, 1, "Fireball"));
+
+        Hero h1 = new Hero("Alpamys", 100, 50, 10, 5, 200, inv1);
+        Hero h2 = new Hero("Batyr", 120, 30, 15, 8, 300, inv2);
+
+        ChronomancerEngine engine = new ChronomancerEngine();
+        VaultRunResult result = engine.runVault(List.of(h1, h2));
+
+        System.out.println(result);
     }
 }
